@@ -22,7 +22,12 @@ function usage(): never {
   process.exit(1);
 }
 
-const [typeText, tmdbIdText, language = "zh-CN"] = process.argv.slice(2);
+const cliArguments = process.argv.slice(2);
+if (cliArguments[0] === "--") {
+  cliArguments.shift();
+}
+
+const [typeText, tmdbIdText, language = "zh-CN"] = cliArguments;
 
 if (typeText !== "movie" && typeText !== "tv") {
   usage();

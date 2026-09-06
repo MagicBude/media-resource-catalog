@@ -11,7 +11,7 @@
     "typecheck": "tsc --noEmit",
     "test": "pnpm clean && vitest run",
     "clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\"",
-    "media:import": "tsx src/cli/import-media.ts"
+    "media:import": "tsx --env-file-if-exists=../../.env --use-env-proxy src/cli/import-media.ts"
   },
   "dependencies": {
     "fastify": "5.12.1",

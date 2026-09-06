@@ -61,3 +61,11 @@ mrc_test
 并把 `DATABASE_TEST_URL` 指向它。
 
 如果暂时不创建，本地集成测试会自动跳过；CI 仍然会真跑。
+
+
+## 代理
+
+外部 Provider 不写死代理地址。需要代理的开发机在本机根目录 `.env`
+配置 `HTTP_PROXY` / `HTTPS_PROXY` / `NO_PROXY`。
+
+详见：`docs/development/proxy.md`。

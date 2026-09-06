@@ -23,6 +23,12 @@
 - 新增 PostgreSQL Repository Integration Test。
 - GitHub Actions 增加 PostgreSQL 18 测试服务。
 
+#### Fixed
+
+- Media Import CLI 改为使用 Node 标准环境代理支持，不再依赖任何写死的代理地址或端口。
+- 支持每台开发机通过本地 `.env` 独立配置 `HTTP_PROXY`、`HTTPS_PROXY` 与 `NO_PROXY`。
+- Import CLI 同时兼容带或不带 `--` 的参数形式。
+
 #### Changed
 
 - API 运行时开始真实连接 `mrc_dev`。
