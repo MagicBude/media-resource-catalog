@@ -1,19 +1,24 @@
 {
   "name": "@media-resource-catalog/api",
-  "version": "0.1.0",
+  "version": "0.2.2",
   "private": true,
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/server.ts",
     "build": "pnpm clean && tsc -p tsconfig.build.json",
-    "start": "node dist/server.js",
+    "start": "tsx src/server.ts",
     "lint": "eslint src",
     "typecheck": "tsc --noEmit",
     "test": "pnpm clean && vitest run",
-    "clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\""
+    "clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\"",
+    "media:import": "tsx src/cli/import-media.ts"
   },
   "dependencies": {
-    "fastify": "5.12.1"
+    "fastify": "5.12.1",
+    "@media-resource-catalog/catalog": "workspace:*",
+    "@media-resource-catalog/database": "workspace:*",
+    "@media-resource-catalog/providers": "workspace:*",
+    "dotenv": "17.2.3"
   },
   "devDependencies": {
     "tsx": "4.20.6"

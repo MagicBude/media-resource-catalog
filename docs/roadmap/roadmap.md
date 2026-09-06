@@ -2,83 +2,45 @@
 
 ## V0.1 — Foundation ✅
 
-- Monorepo
-- Next.js
-- Fastify
-- PostgreSQL / Drizzle
-- ESLint / TypeScript / Vitest
-- CI
-- 文档 / Handoff
+工程、数据库、CI、文档与 Handoff 基线。
 
 ## V0.2 — Media Catalog 🚧
 
 ### V0.2.1 Metadata Foundation ✅
 
-- Media
-- Titles
-- External IDs
-- Genres
-- Seasons
-- Episodes
-- Media Repository
-- Metadata Provider Contract
-- TMDB Provider
-- TMDB Fixtures
+- Media Schema
+- TMDB Metadata Provider
+- Repository
+- Fixtures
 
-### V0.2.2 Import & Read API — Next
+### V0.2.2 Import & Read/Search ✅
 
-- TMDB Snapshot Persistence Service
-- Transaction Boundary
-- Movie / TV Import
-- Media Detail Query
-- Catalog Search
-- API Routes
-- PostgreSQL Integration Tests
-- Web Search Minimal Loop
+- Catalog Application Layer
+- Transactional Snapshot Import
+- TMDB Import CLI
+- Read API
+- Search API
+- Web Search
+- Minimal Detail
+- PostgreSQL Integration Test
 
-### V0.2.3 Media UI
+### V0.2.3 Catalog Completion — Next
 
-- Search Result
-- Movie Detail
-- TV Detail
-- Season UI
-- Browse 基础
+- TMDB Search Candidate
+- On-demand explicit Import
+- Full Detail UI
+- Episode Metadata
+- Browse
+- Search Quality
 
 ## V0.3 — Release Catalog
 
-- Release Schema
-- Release Parser
-- Manual Release
-- Release UI
-- Filters
-- Release Files
+Media Catalog 完整后再开始。
 
 ## V0.4 — Share
 
-- Share
-- 115
-- 光鸭
-- Verification
-- Manual Submission
-
 ## V0.5 — Resource Provider Pipeline
-
-- Candidate
-- PanSou
-- Matcher
-- Deduplicator
-- Candidate Inbox
-- Provenance
 
 ## V0.6 — Community
 
-- Accounts
-- Favorites
-- Contributions
-- Reports
-- Audit
-- Point Ledger
-
-## V0.7 — Public API
-
-稳定 `/api/v1`。
+## V0.7 — Public API Stabilization

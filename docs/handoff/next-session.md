@@ -1,67 +1,61 @@
 # Next Session
 
-## 当前首先完成 V0.2.1 验收
+## 下一任务
 
-执行：
+V0.2.3 Media Catalog Completion。
 
-```bash
-pnpm repo:validate
-pnpm lint
-pnpm typecheck
-pnpm test
-pnpm build
-docker compose up -d postgres
-pnpm db:generate
-pnpm db:migrate
-pnpm run check
-```
+## 优先级
 
-`pnpm db:generate` 生成的 migration 需要一起提交。
+### 1. TMDB Search Candidate
 
-## 全部通过后
-
-进入：
-
-**V0.2.2 Media Import & Read API**
-
-### 1. Application Transaction Service
+用户搜索本地没有结果时：
 
 ```text
-MediaCatalogSnapshot
+Local Search
+ ↓ empty
+TMDB Search
  ↓
-Transaction
- ↓
-MediaRepository
+External Media Candidate
 ```
 
-### 2. TMDB Import
+必须由用户明确选择后再 Import。
 
-```text
-movie + tmdbId
-tv + tmdbId
-```
+### 2. Detail UI
 
-### 3. Read API
+补：
 
-```text
-GET /api/v1/media/movie/:tmdbId
-GET /api/v1/media/tv/:tmdbId
-```
+- Poster / Backdrop
+- Overview
+- Genres
+- External IDs
+- Titles
+- TV Seasons
 
-### 4. Catalog Search
+### 3. Episode Import
 
-正式数据库优先：
+按 Season 请求 TMDB Episode Details。
 
-- media.title
-- media_titles.title
-- external IDs
+### 4. Browse
 
-## 暂时不要做
+基础：
+
+- Movie / TV
+- Genre
+- Year
+- Recent Metadata Update
+
+### 5. Search Quality
+
+- Title + Year
+- 排序
+- pg_trgm
+- Search Index
+
+## 暂时不要
 
 - Release
 - Share
 - PanSou
-- User
-- Points
-- AI
-- Auto Transfer
+- Community
+
+先让 Media Catalog 自己成为完整、好用的资料库。

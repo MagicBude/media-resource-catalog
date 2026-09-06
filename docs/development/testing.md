@@ -1,54 +1,53 @@
 # Testing Strategy
 
-## Core
+## Unit
 
-Unit Test。
+当前覆盖：
 
-## Database
+- Core
+- Catalog Service
+- API Route
+- TMDB Client / Provider
+- Database Schema
 
-当前 V0.2.1：
+## PostgreSQL Integration Test
 
-- Schema / Enum Contract Test
-- Repository 通过 TypeScript 编译约束
-
-V0.2.2 增加真实 PostgreSQL Repository Integration Test。
-
-测试数据库必须独立于生产库。
-
-## Metadata Provider
-
-TMDB 测试使用：
+V0.2.2 开始增加真实数据库测试：
 
 ```text
-packages/providers/fixtures/tmdb/
+MediaRepository integration
 ```
 
-覆盖：
+测试会：
 
-- Bearer Authorization
-- Movie Snapshot
-- TV Snapshot
-- Alternative Titles
-- External IDs
-- Canonical Genres
-- HTTP Error
+1. 执行正式 Drizzle Migration
+2. 写入 MediaCatalogSnapshot
+3. 读取完整 Media Detail
+4. 测试 Title Search
+5. 测试 External ID Search
 
-单元测试不需要真实 TMDB Token，也不实时联网。
+## 本地
 
-## Release Parser（未来）
-
-建立独立 Release Name Fixtures。
-
-## Resource Provider（未来）
-
-使用 Contract Test + Raw Response Fixtures。
-
-## CI 最低要求
+`.env` 中配置：
 
 ```text
-repo:validate
-lint
-typecheck
-test
-build
+DATABASE_TEST_URL=postgresql://mrc:mrc@127.0.0.1:5432/mrc_test
 ```
+
+即可真跑。
+
+不配置时 Integration Test 自动 skip，不会误用 `mrc_dev`。
+
+## CI
+
+GitHub Actions 自动启动 PostgreSQL 18：
+
+```text
+mrc_test
+```
+
+因此 CI 会真实执行数据库 Integration Test。
+
+## 原则
+
+测试数据库永远与开发 / 生产数据库分离。

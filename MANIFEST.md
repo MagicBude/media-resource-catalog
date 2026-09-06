@@ -1,89 +1,69 @@
 # MANIFEST
 
-本文件是仓库当前结构的**唯一总清单**。
-
-后续版本直接更新本文件，不新增版本化 MANIFEST。
-
-## 根目录
-
-- `README.md`
-- `AGENTS.md`
-- `PROJECT_STATUS.md`
-- `MANIFEST.md`
-- `CHANGELOG.md`
-- `CONTRIBUTING.md`
-- `.env.example`
-- `docker-compose.yml`
-- `eslint.config.mjs`
-- `tsconfig.base.json`
-- `pnpm-workspace.yaml`
-- `package.json`
+本文件是仓库当前结构的唯一总清单。
 
 ## apps
 
 ### `apps/web`
 
-Next.js 前台。
+Next.js：
+
+- `/`
+- `/search`
+- `/movie/[tmdbId]`
+- `/tv/[tmdbId]`
 
 ### `apps/api`
 
-Fastify REST API，当前提供 `/health`。
+Fastify：
+
+- `/health`
+- `/api/v1/media/search`
+- `/api/v1/media/:type/:tmdbId`
+
+CLI：
+
+- `src/cli/import-media.ts`
 
 ## packages
 
 ### `packages/core`
 
-纯领域层。
-
-当前包含：
-
-- Media Type
-- Media Title Kind
-- External ID Provider
-- Media Catalog Snapshot 类型
+纯领域类型。
 
 ### `packages/database`
 
-PostgreSQL / Drizzle。
+PostgreSQL / Drizzle：
 
-当前正式表：
-
-- `media`
-- `media_titles`
-- `media_external_ids`
-- `genres`
-- `media_genres`
-- `seasons`
-- `episodes`
-
-当前 Repository：
-
-- `MediaRepository`
+- 7 张 Media Catalog 表
+- Migration
+- MediaRepository
+- Repository Integration Test
 
 ### `packages/providers`
 
-外部 Provider 适配层。
-
-当前包含：
-
 - Metadata Provider Contract
 - Resource Provider Contract
-- TMDB Client
-- TMDB Metadata Provider
-- TMDB Snapshot Mapper
-- TMDB Fixtures / Tests
+- TMDB Client / Provider / Fixtures
+
+### `packages/catalog`
+
+应用层：
+
+- MediaCatalogService
+- MediaImportService
+- MediaCatalogStore Contract
+- Media Read / Search DTO
 
 ## docs
 
-详细索引见 `docs/README.md`。
+入口：`docs/README.md`
 
 ## scripts
 
 - `scripts/validate-repository.mjs`
 
-## 尚未创建的未来包
-
-只在真实职责出现时创建：
+## 后续按职责再创建
 
 - `apps/worker`
 - `packages/release-parser`

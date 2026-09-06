@@ -42,9 +42,14 @@ const requiredFiles = [
   "packages/core/package.json",
   "packages/database/package.json",
   "packages/providers/package.json",
+  "packages/catalog/package.json",
+  "packages/catalog/src/media-catalog-service.ts",
+  "packages/catalog/src/media-import-service.ts",
   "packages/core/src/media/types.ts",
   "packages/database/src/repositories/media-repository.ts",
   "packages/providers/src/metadata/tmdb/provider.ts",
+  "apps/api/src/media-routes.ts",
+  "apps/web/app/search/page.tsx",
 ];
 
 const missing = requiredFiles.filter((file) => !existsSync(resolve(file)));

@@ -1,11 +1,11 @@
 {
   "name": "media-resource-catalog",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "private": true,
   "packageManager": "pnpm@11.25.0",
   "scripts": {
     "dev": "pnpm -r --parallel --filter @media-resource-catalog/web --filter @media-resource-catalog/api dev",
-    "build": "pnpm -r --filter @media-resource-catalog/core --filter @media-resource-catalog/database --filter @media-resource-catalog/providers --filter @media-resource-catalog/api --filter @media-resource-catalog/web build",
+    "build": "pnpm -r --filter @media-resource-catalog/core --filter @media-resource-catalog/database --filter @media-resource-catalog/providers --filter @media-resource-catalog/catalog --filter @media-resource-catalog/api --filter @media-resource-catalog/web build",
     "lint": "pnpm -r lint",
     "typecheck": "pnpm -r typecheck",
     "test": "pnpm -r test",
@@ -13,7 +13,8 @@
     "check": "pnpm repo:validate && pnpm lint && pnpm typecheck && pnpm test && pnpm build",
     "db:generate": "pnpm --filter @media-resource-catalog/database db:generate",
     "db:migrate": "pnpm --filter @media-resource-catalog/database db:migrate",
-    "db:studio": "pnpm --filter @media-resource-catalog/database db:studio"
+    "db:studio": "pnpm --filter @media-resource-catalog/database db:studio",
+    "media:import": "pnpm --filter @media-resource-catalog/api media:import"
   },
   "devDependencies": {
     "@eslint/js": "10.0.1",

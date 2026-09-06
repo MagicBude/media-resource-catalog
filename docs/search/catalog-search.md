@@ -1,55 +1,43 @@
 # Catalog Search
 
-Catalog Search 搜索**正式 Media Catalog**。
+Catalog Search 搜索正式 PostgreSQL Media Catalog。
 
-## 输入
+## 当前 V0.2.2 支持
 
-支持目标：
+标题：
 
-```text
-中文名
-原名
-英文名
-别名
-年份
-TMDB ID
-IMDb ID
-豆瓣 ID
-```
-
-## 搜索字段
-
-主要：
-
+- `media.title`
+- `media.original_title`
 - `media_titles.title`
-- `media_external_ids`
-- year
 
-## V0.x 技术
+External ID：
 
-先使用：
+- Raw IMDb，例如 `tt15239678`
+- `tmdb:693134`
+- `imdb:tt15239678`
+- `douban:...`
+- `tvdb:...`
+- `anidb:...`
+- `bangumi:...`
+- `wikidata:...`
 
-- PostgreSQL
-- `pg_trgm`
-- Full Text Search
-
-不要过早引入 Elasticsearch / OpenSearch。
-
-## 搜索结果
-
-返回 Media，不直接返回几十条链接。
-
-卡片应该可以显示：
+## API
 
 ```text
-Poster
-Title
-Original Title
-Year
-TMDB
-4K Release Count
-1080p Release Count
-Total Release Count
+GET /api/v1/media/search?q=Dune
+GET /api/v1/media/search?q=tmdb:693134
+GET /api/v1/media/search?q=imdb:tt15239678
 ```
 
-后面的资源统计等 Release 模型落地后再加入。
+## 重要原则
+
+当前搜索只搜**正式本地 Catalog**。
+
+TMDB Search Fallback 属于下一阶段，并且即使加入，也必须明确区分：
+
+```text
+Local Result
+External Candidate
+```
+
+不能让每次搜索悄悄把第三方结果直接写入数据库。

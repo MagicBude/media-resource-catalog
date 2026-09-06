@@ -1,8 +1,11 @@
 {
   "name": "@media-resource-catalog/database",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "private": true,
   "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
   "scripts": {
     "build": "pnpm clean && tsc -p tsconfig.build.json",
     "lint": "eslint src drizzle.config.ts",

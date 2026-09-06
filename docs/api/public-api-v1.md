@@ -6,67 +6,43 @@ Base：
 /api/v1
 ```
 
-## Media
+## 当前已实现
+
+### Search
 
 ```text
-GET /media/search?q=
-GET /media/movie/:tmdbId
-GET /media/tv/:tmdbId
+GET /api/v1/media/search?q=Dune
 ```
 
-## Releases
+Response：
+
+```json
+{
+  "items": []
+}
+```
+
+### Media Detail
 
 ```text
-GET /media/movie/:tmdbId/releases
-GET /media/tv/:tmdbId/releases
-GET /releases/:id
+GET /api/v1/media/movie/:tmdbId
+GET /api/v1/media/tv/:tmdbId
 ```
 
-筛选参数未来：
+404 表示作品尚未进入本地 Catalog。
 
-```text
-resolution
-source
-hdr
-provider
-subtitle
+## 当前未公开 Import API
+
+真实 TMDB 导入当前通过 CLI：
+
+```bash
+pnpm media:import -- movie 693134
 ```
 
-## Shares
+不在没有认证系统的情况下公开一个任意写数据库的 Import Endpoint。
 
-```text
-GET /releases/:id/shares
-```
+## 后续
 
-是否返回真实 Share URL 由权限策略控制。
+Release / Share API 等对应领域模型完成后再加入。
 
-## User Mutation
-
-未来：
-
-```text
-POST /submissions
-POST /shares/:id/verify
-POST /reports
-```
-
-## API 边界
-
-未来区分：
-
-- Public API
-- Internal API
-- Admin API
-
-不要直接把 Worker 内部控制接口暴露为 Public API。
-
-## 长期消费场景
-
-目标允许：
-
-- NAS Scripts
-- MoviePilot 类插件
-- MediaSync 类工具
-- 其他个人媒体管理工具
-
-把本站当成结构化 Resource Provider。
+Public / Internal / Admin API 最终仍需要分离。

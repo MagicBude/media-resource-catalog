@@ -1,0 +1,20 @@
+{
+  "name": "@media-resource-catalog/catalog",
+  "version": "0.2.2",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\"",
+    "build": "pnpm clean && tsc -p tsconfig.build.json",
+    "lint": "eslint src",
+    "typecheck": "tsc --noEmit",
+    "test": "pnpm clean && vitest run"
+  },
+  "dependencies": {
+    "@media-resource-catalog/core": "workspace:*",
+    "@media-resource-catalog/providers": "workspace:*"
+  }
+}

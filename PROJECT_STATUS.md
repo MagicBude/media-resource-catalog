@@ -2,84 +2,120 @@
 
 ## 当前版本
 
-`V0.2.1 Media Catalog / Metadata Foundation`
+`V0.2.2 Media Import & Read/Search`
 
 ## 当前目标
 
-把影视资料库本身的基础模型做正确，再进入 Release / Share。
-
-## 已完成设计与代码
-
-### Foundation
-
-- pnpm Workspace
-- Next.js Web
-- Fastify API
-- PostgreSQL / Drizzle
-- Core Package
-- ESLint / TypeScript / Vitest
-- Docker PostgreSQL
-- GitHub Actions
-- 分类文档与 AI 交接体系
-
-### Media Catalog Metadata Foundation
-
-正式落地：
+完成第一条真正可运行的 Media Catalog 闭环：
 
 ```text
-media
-media_titles
-media_external_ids
-genres
-media_genres
-seasons
-episodes
+TMDB
+  ↓
+MediaImportService
+  ↓
+MediaCatalogSnapshot
+  ↓
+PostgreSQL Transaction
+  ↓
+Read / Search API
+  ↓
+Web Search
 ```
+
+## 已完成
+
+### V0.1 Foundation
+
+- Monorepo
+- Next.js
+- Fastify
+- PostgreSQL / Drizzle
+- ESLint / TypeScript / Vitest
+- CI
+- 分类文档与 Handoff
+
+### V0.2.1 Metadata Foundation
+
+- Media / Titles / External IDs / Genres
+- Seasons / Episodes
+- MediaRepository
+- TMDB Metadata Provider
+- Fixtures / Tests
+
+### V0.2.2 Import & Read/Search
 
 新增：
 
-- Media Domain Types
-- Media Repository
-- Metadata Provider Contract
-- Resource Provider Contract
-- TMDB Client
-- TMDB Metadata Provider
-- TMDB → Domain Snapshot Mapper
-- Movie / TV Fixtures
-- Provider Tests
-- Schema Tests
+- `packages/catalog`
+- `MediaCatalogService`
+- `MediaImportService`
+- Snapshot 事务持久化
+- 本地 Catalog Search
+- Movie / TV Read API
+- TMDB Import CLI
+- `/search`
+- `/movie/[tmdbId]`
+- `/tv/[tmdbId]`
+- PostgreSQL Repository Integration Test
+- CI PostgreSQL service
 
-## 2026-09-06 本地验收发现并修复
-
-第一轮本地验证暴露了四个工程兼容问题：
-
-1. Repository validator 只接受单行右箭头，不接受文档中的纵向箭头。
-2. ESLint 10 `require-await` 抓到同步 Fastify handler 与测试 mock。
-3. Drizzle Kit 的运行时 loader 无法通过 Core 源码入口解析 `.js` 重导出。
-4. 数据库子包没有主动加载仓库根目录 `.env`。
-
-当前修复包已针对以上问题修正，等待用户重新执行完整验证。
-
-## 核心不变量
+## 当前 API
 
 ```text
-Media → Release → Share → Provenance
+GET /health
+GET /api/v1/media/search?q=
+GET /api/v1/media/movie/:tmdbId
+GET /api/v1/media/tv/:tmdbId
 ```
+
+## 当前导入命令
+
+配置 `.env`：
+
+```text
+TMDB_ACCESS_TOKEN=...
+```
+
+然后：
+
+```bash
+pnpm media:import -- movie 693134
+pnpm media:import -- tv 1399
+```
+
+## 搜索
+
+当前基础搜索支持：
+
+- Primary Title
+- Original Title
+- Alternative Title
+- Raw IMDb ID
+- `tmdb:693134`
+- `imdb:tt15239678`
+- 其他已存 External ID 前缀查询
+
+## 尚未实现
+
+- TMDB Search Fallback
+- Credits
+- Episode Details Import
+- Browse 页面
+- Release
+- Share
+- Provenance 正式表
+- PanSou
+- Community
 
 ## 下一步
 
-本轮先完成：
+V0.2.3：
 
-```bash
-pnpm repo:validate
-pnpm lint
-pnpm typecheck
-pnpm test
-pnpm build
-docker compose up -d postgres
-pnpm db:generate
-pnpm db:migrate
-pnpm run check
-```
+1. TMDB Search / On-demand Import Flow
+2. Catalog Search + TMDB Fallback
+3. 更完整 Movie / TV Detail UI
+4. Episode Details
+5. Browse 基础
+6. 搜索排序与 Year Filter
 
-全部通过后提交 V0.2.1，再进入 V0.2.2 Media Import & Read API。
+当前仍然不要进入 Release / Share，先让 Media Catalog 完整可用。

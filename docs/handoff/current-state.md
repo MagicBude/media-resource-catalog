@@ -8,42 +8,49 @@ https://github.com/MagicBude/media-resource-catalog.git
 
 ## 当前阶段
 
-V0.2.1 Media Catalog / Metadata Foundation，本地验收修复中。
+V0.2.2 Media Import & Read/Search。
 
-## 已实现
+## 已形成可运行闭环
 
-- Media / Titles / External IDs / Genres
-- Seasons / Episodes
-- MediaRepository
-- Metadata / Resource Provider Contract
-- TMDB Client / Provider / Normalizer
-- TMDB Fixtures / Tests
+```text
+TMDB
+ ↓
+Import CLI
+ ↓
+Catalog Application Service
+ ↓
+PostgreSQL
+ ↓
+Fastify Read/Search API
+ ↓
+Next.js Search / Detail
+```
 
-## 2026-09-06 本地验收信息
-
-已确认：
-
-- TypeScript 全部通过。
-- Unit Tests 全部通过。
-- Build 全部通过。
-
-首轮失败属于工程兼容：
-
-- repo validator 表示法过严
-- ESLint 10 require-await
-- drizzle-kit workspace 源码运行时解析
-- root `.env` 加载路径
-
-修复覆盖包已生成，下一步重新验证。
-
-## 仍然不变
+## 核心架构仍然是
 
 ```text
 Media → Release → Share → Provenance
 ```
 
-TMDB = Metadata Provider。
+当前只建设 Media。
 
-PanSou = Resource Provider。
+## 当前包
 
-Provider 不直接写正式数据库实体。
+- core
+- database
+- providers
+- catalog
+
+## 当前 API
+
+- Search
+- Movie Detail
+- TV Detail
+
+## 重要边界
+
+- TMDB Provider 不写数据库。
+- Catalog Service 编排 Use Case。
+- Repository 管 SQL 与 Transaction。
+- API 不直接操作多个数据库表。
+- Web 不直连数据库。

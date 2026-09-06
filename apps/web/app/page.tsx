@@ -24,16 +24,20 @@ export default function HomePage() {
         <div className="eyebrow">MEDIA RESOURCE CATALOG · V0.2</div>
         <h1>找到你真正想要的那个版本。</h1>
         <p className="lead">
-          Media Catalog 已进入正式建设：作品、多语言标题、外部 ID、
-          Genre 与剧集结构正在成为可查询的数据基础。
+          Media Catalog 已支持正式作品入库与本地搜索。先确认作品，
+          再进入 Release 与 Share。
         </p>
 
-        <div className="searchShell" aria-label="搜索功能占位">
-          <span>搜索电影、剧集、TMDB / IMDb / 豆瓣 ID</span>
-          <button type="button" disabled>
-            V0.2.2 开放
-          </button>
-        </div>
+        <form className="searchShell" action="/search">
+          <input
+            name="q"
+            type="search"
+            placeholder="搜索电影、剧集、TMDB / IMDb ID"
+            aria-label="搜索电影和剧集"
+            required
+          />
+          <button type="submit">搜索</button>
+        </form>
       </section>
 
       <section className="architecture">
@@ -53,7 +57,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <footer>V0.2 · Media Catalog / Metadata Foundation</footer>
+      <footer>V0.2.2 · Import → PostgreSQL → API → Search</footer>
     </main>
   );
 }

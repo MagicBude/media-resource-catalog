@@ -2,6 +2,34 @@
 
 ## Unreleased
 
+
+### V0.2.2 — Media Import & Read/Search
+
+#### Fixed
+
+- 清理 V0.2.2 新增代码中的 ESLint 10 type-aware 问题：移除不必要类型断言与无意义 `async`，并调整测试 Promise Mock。
+
+
+#### Added
+
+- 新增 `packages/catalog` 应用层。
+- 新增 `MediaCatalogService` 与 `MediaImportService`。
+- `MediaRepository.saveSnapshot()` 使用 PostgreSQL Transaction 原子同步
+  Media、Titles、External IDs、Genres 与 Seasons。
+- 新增本地 Catalog Search。
+- 新增 Movie / TV Read API。
+- 新增 `pnpm media:import -- <movie|tv> <tmdbId>` TMDB 导入命令。
+- 新增 Web `/search`、`/movie/[tmdbId]`、`/tv/[tmdbId]` 最小闭环页面。
+- 新增 PostgreSQL Repository Integration Test。
+- GitHub Actions 增加 PostgreSQL 18 测试服务。
+
+#### Changed
+
+- API 运行时开始真实连接 `mrc_dev`。
+- 搜索优先查询正式本地数据库，不直接把每次搜索转发 TMDB。
+- CI 会真实执行 Migration + Repository SQL 集成测试。
+
+
 ### V0.2.1 — Media Catalog / Metadata Foundation
 
 #### Added

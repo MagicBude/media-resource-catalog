@@ -32,6 +32,18 @@ importers:
 
   apps/api:
     dependencies:
+      '@media-resource-catalog/catalog':
+        specifier: workspace:*
+        version: link:../../packages/catalog
+      '@media-resource-catalog/database':
+        specifier: workspace:*
+        version: link:../../packages/database
+      '@media-resource-catalog/providers':
+        specifier: workspace:*
+        version: link:../../packages/providers
+      dotenv:
+        specifier: 17.2.3
+        version: 17.2.3
       fastify:
         specifier: 5.12.1
         version: 5.12.1
@@ -42,6 +54,9 @@ importers:
 
   apps/web:
     dependencies:
+      '@media-resource-catalog/catalog':
+        specifier: workspace:*
+        version: link:../../packages/catalog
       next:
         specifier: 16.3.4
         version: 16.3.4(@types/node@24.10.1)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -58,6 +73,15 @@ importers:
       '@types/react-dom':
         specifier: 19.2.2
         version: 19.2.2(@types/react@19.2.2)
+
+  packages/catalog:
+    dependencies:
+      '@media-resource-catalog/core':
+        specifier: workspace:*
+        version: link:../core
+      '@media-resource-catalog/providers':
+        specifier: workspace:*
+        version: link:../providers
 
   packages/core: {}
 

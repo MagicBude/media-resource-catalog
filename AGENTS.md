@@ -73,6 +73,15 @@ PanSou
 
 禁止负责 TMDB / PanSou 网络请求与 Release 解析。
 
+### packages/catalog
+
+负责 Media Catalog Application Use Case：
+
+- Import Orchestration
+- Read/Search Service
+
+禁止写 SQL，也禁止直接依赖 Fastify / Next.js。
+
 ### packages/providers
 
 负责外部 Provider Adapter。
@@ -112,7 +121,7 @@ PanSou
 
 ## 7. 当前阶段
 
-当前：V0.2 Media Catalog。
+当前：V0.2.2 Media Catalog Import / Read / Search。
 
 暂时不要实现：
 

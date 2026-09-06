@@ -10,89 +10,70 @@ apps/
 packages/
 ├─ core
 ├─ database
-└─ providers
-```
-
-V0.2.1 已经真实创建 `packages/providers`，因为 TMDB Metadata Provider 开始承担实际职责。
-
-## 后续目标结构
-
-```text
-apps/
-├─ web
-├─ api
-└─ worker                 # 后续
-
-packages/
-├─ core
-├─ database
 ├─ providers
-├─ release-parser         # 后续
-├─ matcher                # 后续
-├─ pipeline               # 后续
-├─ search                 # 后续
-├─ auth                   # 后续
-├─ ui                     # 后续
-└─ config                 # 后续
+└─ catalog
 ```
 
-不存在真实职责的包不提前创建空壳。
-
-## 核心领域流
+## 核心领域
 
 ```text
-Media
-  ↓
-Release
-  ↓
-Share
-  ↓
-Provenance
+Media → Release → Share → Provenance
 ```
 
-## Metadata Flow
+## 当前 Media Import Flow
 
 ```text
 TMDB Metadata Provider
   ↓
 MediaCatalogSnapshot
   ↓
-Application Service
+MediaImportService
+  ↓
+MediaCatalogService
+  ↓
+MediaCatalogStore
   ↓
 MediaRepository
-  ↓
+  ↓ PostgreSQL Transaction
 PostgreSQL
 ```
 
-V0.2.1 已完成 Provider 与 Repository 两端，Application Service 留到 V0.2.2。
+Provider 不直接操作数据库。
 
-## Resource Discovery Flow（未来）
+API Route 也不直接编排多个 Repository 写操作。
+
+## 当前 Read/Search Flow
+
+```text
+Web
+ ↓
+Fastify API
+ ↓
+MediaCatalogService
+ ↓
+MediaRepository
+ ↓
+PostgreSQL
+```
+
+## 未来 Resource Discovery
 
 ```text
 Media
-  ↓
+ ↓
 Resource Provider
-  ↓
+ ↓
 ResourceCandidate[]
-  ↓
+ ↓
 Parser
-  ↓
+ ↓
 Matcher
-  ↓
-Normalizer
-  ↓
+ ↓
 Deduplicator
-  ↓
-Review / Policy
-  ↓
-Repository
+ ↓
+Pipeline
+ ↓
+Release / Share / Provenance
 ```
 
-## 设计目标
-
-- Core 不依赖基础设施。
-- Metadata Provider 与 Resource Provider 分离。
-- Provider 不直接写数据库。
-- Raw Data 可追溯。
-- API 与 Web 解耦。
-- 后台任务可独立扩展。
+当前阶段仍不实现这条链。

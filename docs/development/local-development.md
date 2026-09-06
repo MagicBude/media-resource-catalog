@@ -1,67 +1,63 @@
 # Local Development
 
-## 推荐环境
+## 当前环境
+
+推荐：
 
 - Node.js 24+
 - pnpm 11+
-- PostgreSQL 17+
-- Docker（可选）
+- PostgreSQL 18+
 
-## 初始化
+用户当前 Windows 开发机已经使用 PostgreSQL 18.6。
+
+## Root `.env`
+
+```text
+DATABASE_URL=postgresql://mrc:mrc@127.0.0.1:5432/mrc_dev
+DATABASE_TEST_URL=
+API_HOST=127.0.0.1
+API_PORT=4100
+NEXT_PUBLIC_API_BASE_URL=http://127.0.0.1:4100
+TMDB_ACCESS_TOKEN=
+```
+
+## 开发启动
 
 ```bash
-pnpm install
-docker compose up -d postgres
-cp .env.example .env
-pnpm db:generate
-pnpm db:migrate
 pnpm dev
 ```
 
-PowerShell：
+## 真实导入 TMDB
 
-```powershell
-pnpm install
-docker compose up -d postgres
-Copy-Item .env.example .env
-pnpm db:generate
-pnpm db:migrate
-pnpm dev
-```
-
-## V0.2 TMDB
-
-真正请求 TMDB 前，在 `.env` 填：
-
-```text
-TMDB_ACCESS_TOKEN=...
-```
-
-Fixture Tests 不需要 Token，也不访问网络。
-
-## 地址
-
-```text
-Web    http://127.0.0.1:3000
-API    http://127.0.0.1:4100
-Health http://127.0.0.1:4100/health
-```
-
-## PostgreSQL
-
-默认本地 Docker：
-
-```text
-database: mrc_dev
-user: mrc
-password: mrc
-port: 5432
-```
-
-仅用于本地开发。
-
-## 完整检查
+先配置 `TMDB_ACCESS_TOKEN`，然后：
 
 ```bash
-pnpm run check
+pnpm media:import -- movie 693134
+pnpm media:import -- tv 1399
 ```
+
+## 搜索
+
+导入后：
+
+```text
+http://127.0.0.1:3000/search?q=Dune
+```
+
+或：
+
+```text
+http://127.0.0.1:4100/api/v1/media/search?q=tmdb:693134
+```
+
+## 可选测试数据库
+
+建议创建：
+
+```text
+mrc_test
+```
+
+并把 `DATABASE_TEST_URL` 指向它。
+
+如果暂时不创建，本地集成测试会自动跳过；CI 仍然会真跑。

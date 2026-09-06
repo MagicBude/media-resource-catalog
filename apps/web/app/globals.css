@@ -74,13 +74,27 @@ h1 {
   color: #777983;
 }
 
+.searchShell input {
+  min-width: 0;
+  flex: 1;
+  border: 0;
+  outline: 0;
+  color: #f5f5f2;
+  background: transparent;
+}
+
+.searchShell input::placeholder {
+  color: #777983;
+}
+
 .searchShell button {
   flex: 0 0 auto;
   padding: 12px 18px;
   border: 0;
   border-radius: 12px;
-  color: #888a92;
-  background: #23252b;
+  color: #f5f5f2;
+  background: #343741;
+  cursor: pointer;
 }
 
 .architecture {
@@ -163,5 +177,93 @@ footer {
 
   .card h3 {
     margin-top: 44px;
+  }
+}
+
+
+.searchPage {
+  min-height: 100vh;
+  padding: 72px 0;
+}
+
+.searchHeader {
+  margin-bottom: 36px;
+}
+
+.searchHeader a {
+  color: #8f91a0;
+  text-decoration: none;
+}
+
+.searchHeader h1 {
+  margin-top: 28px;
+  font-size: clamp(42px, 7vw, 84px);
+}
+
+.searchResults {
+  display: grid;
+  gap: 12px;
+}
+
+.resultCard {
+  display: grid;
+  grid-template-columns: 72px 1fr auto;
+  gap: 18px;
+  align-items: center;
+  padding: 16px;
+  border: 1px solid #262830;
+  border-radius: 18px;
+  color: inherit;
+  background: rgba(255, 255, 255, 0.025);
+  text-decoration: none;
+}
+
+.resultPoster {
+  width: 72px;
+  aspect-ratio: 2 / 3;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #1d1f25;
+  color: #666975;
+  font-size: 11px;
+}
+
+.resultPoster img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.resultBody h2 {
+  margin: 0 0 8px;
+  font-size: 20px;
+}
+
+.resultBody p,
+.resultMeta,
+.searchMessage {
+  margin: 0;
+  color: #92949d;
+}
+
+.resultMeta {
+  font-size: 13px;
+  text-align: right;
+}
+
+@media (max-width: 560px) {
+  .resultCard {
+    grid-template-columns: 56px 1fr;
+  }
+
+  .resultPoster {
+    width: 56px;
+  }
+
+  .resultMeta {
+    grid-column: 2;
+    text-align: left;
   }
 }
