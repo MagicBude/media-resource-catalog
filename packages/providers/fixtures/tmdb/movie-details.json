@@ -1,0 +1,16 @@
+{
+  "id": 693134,
+  "title": "沙丘2",
+  "original_title": "Dune: Part Two",
+  "original_language": "en",
+  "overview": "Fixture overview for provider tests.",
+  "release_date": "2024-02-27",
+  "status": "Released",
+  "poster_path": "/fixture-movie-poster.jpg",
+  "backdrop_path": "/fixture-movie-backdrop.jpg",
+  "runtime": 167,
+  "genres": [
+    { "id": 878, "name": "科幻" },
+    { "id": 12, "name": "冒险" }
+  ]
+}

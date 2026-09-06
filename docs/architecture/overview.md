@@ -1,6 +1,21 @@
 # Architecture Overview
 
-## 目标结构
+## 当前结构
+
+```text
+apps/
+├─ web
+└─ api
+
+packages/
+├─ core
+├─ database
+└─ providers
+```
+
+V0.2.1 已经真实创建 `packages/providers`，因为 TMDB Metadata Provider 开始承担实际职责。
+
+## 后续目标结构
 
 ```text
 apps/
@@ -11,7 +26,7 @@ apps/
 packages/
 ├─ core
 ├─ database
-├─ providers              # 后续
+├─ providers
 ├─ release-parser         # 后续
 ├─ matcher                # 后续
 ├─ pipeline               # 后续
@@ -21,12 +36,7 @@ packages/
 └─ config                 # 后续
 ```
 
-当前 V0.1 只创建有真实代码的：
-
-- `apps/web`
-- `apps/api`
-- `packages/core`
-- `packages/database`
+不存在真实职责的包不提前创建空壳。
 
 ## 核心领域流
 
@@ -40,12 +50,28 @@ Share
 Provenance
 ```
 
-## Resource Discovery 流
+## Metadata Flow
+
+```text
+TMDB Metadata Provider
+  ↓
+MediaCatalogSnapshot
+  ↓
+Application Service
+  ↓
+MediaRepository
+  ↓
+PostgreSQL
+```
+
+V0.2.1 已完成 Provider 与 Repository 两端，Application Service 留到 V0.2.2。
+
+## Resource Discovery Flow（未来）
 
 ```text
 Media
   ↓
-Provider Manager
+Resource Provider
   ↓
 ResourceCandidate[]
   ↓
@@ -64,8 +90,9 @@ Repository
 
 ## 设计目标
 
-- Core 不依赖基础设施
-- Provider 不污染数据库
-- Raw Data 可追溯
-- API 与 Web 解耦
-- 后台任务可独立扩展
+- Core 不依赖基础设施。
+- Metadata Provider 与 Resource Provider 分离。
+- Provider 不直接写数据库。
+- Raw Data 可追溯。
+- API 与 Web 解耦。
+- 后台任务可独立扩展。

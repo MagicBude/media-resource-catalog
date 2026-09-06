@@ -1,78 +1,67 @@
 # Next Session
 
-## 下一任务
+## 当前首先完成 V0.2.1 验收
 
-进入 **V0.2 Media Catalog / Schema Foundation**。
-
-不要先做 UI 花活。
-
-## 推荐顺序
-
-### 1. 正式 Media Schema
-
-实现：
-
-```text
-media
-media_titles
-media_external_ids
-genres
-media_genres
-seasons
-episodes
-```
-
-### 2. Constraint
-
-重点确认：
-
-```text
-(type, tmdb_id)
-(provider, external_id)
-(media_id, season_number)
-(season_id, episode_number)
-```
-
-### 3. Repository
-
-建立：
-
-- MediaRepository
-- Title / External ID Query
-- Transaction Tests
-
-### 4. TMDB Contract
-
-再创建：
-
-```text
-packages/providers
-```
-
-但 Provider Contract 要保持通用。
-
-### 5. Fixture
-
-建立真实 TMDB Fixture，不依赖测试时实时网络。
-
-### 6. Validation
-
-至少：
+执行：
 
 ```bash
+pnpm repo:validate
+pnpm lint
+pnpm typecheck
+pnpm test
+pnpm build
+docker compose up -d postgres
 pnpm db:generate
 pnpm db:migrate
-pnpm check
+pnpm run check
 ```
 
-## 本阶段不要做
+`pnpm db:generate` 生成的 migration 需要一起提交。
 
-- PanSou
+## 全部通过后
+
+进入：
+
+**V0.2.2 Media Import & Read API**
+
+### 1. Application Transaction Service
+
+```text
+MediaCatalogSnapshot
+ ↓
+Transaction
+ ↓
+MediaRepository
+```
+
+### 2. TMDB Import
+
+```text
+movie + tmdbId
+tv + tmdbId
+```
+
+### 3. Read API
+
+```text
+GET /api/v1/media/movie/:tmdbId
+GET /api/v1/media/tv/:tmdbId
+```
+
+### 4. Catalog Search
+
+正式数据库优先：
+
+- media.title
+- media_titles.title
+- external IDs
+
+## 暂时不要做
+
 - Release
 - Share
+- PanSou
 - User
 - Points
 - AI
 - Auto Transfer
-
-先把 Media Catalog 做正确。

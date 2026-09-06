@@ -20,6 +20,8 @@ const requiredFiles = [
   "docs/data-model/release.md",
   "docs/data-model/share-provenance.md",
   "docs/providers/provider-system.md",
+  "docs/providers/tmdb.md",
+  "docs/providers/pansou.md",
   "docs/search/catalog-search.md",
   "docs/search/resource-discovery.md",
   "docs/ui/information-architecture.md",
@@ -38,7 +40,11 @@ const requiredFiles = [
   "apps/web/package.json",
   "apps/api/package.json",
   "packages/core/package.json",
-  "packages/database/package.json"
+  "packages/database/package.json",
+  "packages/providers/package.json",
+  "packages/core/src/media/types.ts",
+  "packages/database/src/repositories/media-repository.ts",
+  "packages/providers/src/metadata/tmdb/provider.ts",
 ];
 
 const missing = requiredFiles.filter((file) => !existsSync(resolve(file)));
@@ -51,16 +57,40 @@ if (missing.length > 0) {
   process.exit(1);
 }
 
-const architectureText = readFileSync(resolve("docs/architecture/overview.md"), "utf8");
+const architectureText = readFileSync(
+  resolve("docs/architecture/overview.md"),
+  "utf8",
+);
 const agentsText = readFileSync(resolve("AGENTS.md"), "utf8");
 
-const invariant = "Media → Release → Share → Provenance";
+const invariantPattern =
+  /Media\s*[→↓]\s*Release\s*[→↓]\s*Share\s*[→↓]\s*Provenance/;
 
-if (!architectureText.includes(invariant) || !agentsText.includes(invariant)) {
-  console.error(`Repository validation failed. Core invariant is missing: ${invariant}`);
+if (
+  !invariantPattern.test(architectureText) ||
+  !invariantPattern.test(agentsText)
+) {
+  console.error(
+    "Repository validation failed. Core invariant Media / Release / Share / Provenance is missing.",
+  );
   process.exit(1);
 }
 
+const providerText = readFileSync(
+  resolve("docs/providers/provider-system.md"),
+  "utf8",
+);
+
+for (const providerKind of ["Metadata Provider", "Resource Provider"]) {
+  if (!providerText.includes(providerKind)) {
+    console.error(
+      `Repository validation failed. Missing provider boundary: ${providerKind}`,
+    );
+    process.exit(1);
+  }
+}
+
 console.log(`✓ Required repository files: ${requiredFiles.length}`);
-console.log(`✓ Core invariant: ${invariant}`);
+console.log("✓ Core invariant: Media → Release → Share → Provenance");
+console.log("✓ Metadata / Resource Provider boundary is documented.");
 console.log("✓ Repository handoff baseline is intact.");

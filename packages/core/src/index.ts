@@ -1,4 +1,4 @@
-export type MediaType = "movie" | "tv";
+export * from "./media/types.js";
 
 export const CORE_MODEL = [
   "Media",

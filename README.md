@@ -21,12 +21,7 @@ Share
 Provenance
 ```
 
-- **Media**：电影 / 剧集本身。
-- **Release**：具体资源版本，例如 `2160p · UHD BluRay REMUX · Dolby Vision · Atmos`。
-- **Share**：该 Release 在 115、光鸭等平台上的一个分享位置。
-- **Provenance**：记录数据来自哪里、由谁提交、何时发现。
-
-详细产品设计、数据模型、Provider、搜索、页面、社区、路线图均已拆分到 `docs/`。
+详细产品设计、数据模型、Provider、搜索、页面、社区、路线图均拆分在 `docs/`。
 
 ## 新 AI / Codex 接手时先读
 
@@ -44,21 +39,29 @@ Provenance
 
 ## 当前阶段
 
-**V0.1 Foundation**
+**V0.2 Media Catalog / Metadata Foundation**
 
-目标仅是建立稳定、可测试、可交接的工程基线。
+当前已经进入正式 Media Catalog：
 
-下一阶段是 **V0.2 Media Catalog**：
-
-- TMDB Provider
 - Media
 - Media Titles
 - External IDs
 - Genres
-- 搜索
-- Movie / TV Detail
+- Seasons
+- Episodes
+- Media Repository
+- Metadata Provider Contract
+- TMDB Metadata Provider
+- TMDB Fixtures / Tests
 
-详见 `PROJECT_STATUS.md` 与 `docs/roadmap/roadmap.md`。
+下一步是 **V0.2.2 Media Import & Read API**：
+
+- TMDB Snapshot → Repository 原子写入
+- Movie / TV Import Service
+- Media Read API
+- Catalog Search 基础查询
+
+详见 `PROJECT_STATUS.md` 与 `docs/handoff/next-session.md`。
 
 ## 技术栈
 
@@ -69,7 +72,7 @@ Provenance
 - PostgreSQL
 - Drizzle ORM
 - Vitest
-- ESLint
+- ESLint 10
 - GitHub Actions
 
 ## 本地启动
@@ -103,7 +106,7 @@ pnpm dev
 ## 质量检查
 
 ```bash
-pnpm check
+pnpm run check
 ```
 
 等价于：
@@ -116,22 +119,8 @@ pnpm test
 pnpm build
 ```
 
-## 文档体系
+> 如果依赖尚未完整安装，pnpm 可能会先尝试补齐依赖。网络较慢时应先确保 `pnpm install` 成功。
 
-```text
-docs/
-├─ product/
-├─ architecture/
-├─ data-model/
-├─ providers/
-├─ search/
-├─ ui/
-├─ community/
-├─ api/
-├─ security/
-├─ development/
-├─ roadmap/
-└─ handoff/
-```
+## 文档入口
 
-入口见 `docs/README.md`。
+见 `docs/README.md`。

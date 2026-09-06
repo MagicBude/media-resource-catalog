@@ -5,7 +5,7 @@ export function buildApp() {
     logger: true,
   });
 
-  app.get("/health", async () => ({
+  app.get("/health", () => ({
     status: "ok",
     service: "media-resource-catalog-api",
     version: "0.1.0",

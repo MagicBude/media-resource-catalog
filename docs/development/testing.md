@@ -4,68 +4,46 @@
 
 Unit Test。
 
-重点：
-
-- Value Object
-- Enum Mapping
-- Domain Rule
-
 ## Database
 
-Repository Integration Test。
+当前 V0.2.1：
 
-未来最好使用独立：
+- Schema / Enum Contract Test
+- Repository 通过 TypeScript 编译约束
+
+V0.2.2 增加真实 PostgreSQL Repository Integration Test。
+
+测试数据库必须独立于生产库。
+
+## Metadata Provider
+
+TMDB 测试使用：
 
 ```text
-mrc_test
-```
-
-禁止测试污染 `mrc_prod`。
-
-## Release Parser
-
-需要真实但脱敏的 Fixture Library：
-
-```text
-fixtures/release-names/
+packages/providers/fixtures/tmdb/
 ```
 
 覆盖：
 
-- 2160p REMUX
-- 2160p WEB-DL
-- 1080p BluRay
-- S01E03
-- S01-S08
-- DV + HDR fallback
-- Atmos
-- 多字幕
-- 非标准命名
+- Bearer Authorization
+- Movie Snapshot
+- TV Snapshot
+- Alternative Titles
+- External IDs
+- Canonical Genres
+- HTTP Error
 
-## Matcher
+单元测试不需要真实 TMDB Token，也不实时联网。
 
-重点验证：
+## Release Parser（未来）
 
-- External ID 精确匹配
-- Title + Year
-- Alias + Year
-- 低置信度拒绝自动猜测
+建立独立 Release Name Fixtures。
 
-## Provider
+## Resource Provider（未来）
 
-使用 Contract Tests + Fixtures。
+使用 Contract Test + Raw Response Fixtures。
 
-网络可用性与解析正确性分开测试。
-
-## API
-
-Route Integration Test。
-
-当前已有 `/health` 注入测试。
-
-## CI
-
-最低：
+## CI 最低要求
 
 ```text
 repo:validate

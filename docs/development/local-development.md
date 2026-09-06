@@ -29,6 +29,16 @@ pnpm db:migrate
 pnpm dev
 ```
 
+## V0.2 TMDB
+
+真正请求 TMDB 前，在 `.env` 填：
+
+```text
+TMDB_ACCESS_TOKEN=...
+```
+
+Fixture Tests 不需要 Token，也不访问网络。
+
 ## 地址
 
 ```text
@@ -50,4 +60,8 @@ port: 5432
 
 仅用于本地开发。
 
-生产凭据不能复用。
+## 完整检查
+
+```bash
+pnpm run check
+```

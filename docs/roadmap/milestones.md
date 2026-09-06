@@ -1,65 +1,52 @@
 # Milestones
 
-## M1 Foundation Ready
+## M1 Foundation Ready ✅
 
-验收：
+工程与文档基线建立。
 
-```text
-pnpm install
-pnpm check
-```
+## M2 Media Metadata Foundation ✅
 
-全部通过。
+完成：
 
-Web / API 均可启动。
+- Media Schema
+- Titles
+- External IDs
+- Genres
+- Seasons
+- Episodes
+- TMDB Metadata Provider
 
-## M2 Media Catalog Ready
+本地仍需完成 migration 与全链路检查后才算实际验收通过。
 
-能够：
+## M3 Media Catalog Usable
 
-- 通过 TMDB 导入 Movie / TV
-- 保存多语言 Title
-- 保存 External ID
-- 浏览 Genre
-- 搜索 Media
-- 打开稳定 Movie / TV URL
+需要：
 
-## M3 Release Ready
+- TMDB Import Service
+- Repository Transaction
+- Search API
+- Movie / TV Detail API
+- 最小 Web Search 闭环
 
-能够：
+完成后网站才真正成为“可用影视资料库”。
 
-- 手动创建 Release
-- Parser 识别主要质量字段
-- 作品页展示多个 Release
-- 进行基础筛选
+## M4 Release Ready
 
-## M4 Share Ready
+- Manual Release
+- Parser
+- Release UI
+- Release Filters
 
-能够：
+## M5 Share Ready
 
-- 一个 Release 关联多个 Share
-- 至少 115 / 光鸭
-- 标记 active / invalid
-- 保留 Verification History
+- 多 Share Provider
+- Verification History
 
-## M5 Discovery Ready
+## M6 Discovery Ready
 
-能够：
+- PanSou Candidate Pipeline
+- Review / Dedup / Provenance
 
-- 从 Media 触发 PanSou
-- 生成 Candidate
-- Parse / Match
-- 去重
-- 人工审核
-- 写入 Provenance
+## M7 Community Ready
 
-## M6 Community Ready
-
-能够：
-
-- 用户投稿
-- 举报
-- 收藏
-- 核验
-- 审核
-- 积分账本
+- User Contribution / Governance

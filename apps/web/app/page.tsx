@@ -21,16 +21,17 @@ export default function HomePage() {
   return (
     <main>
       <section className="hero">
-        <div className="eyebrow">MEDIA RESOURCE CATALOG · V0.1</div>
+        <div className="eyebrow">MEDIA RESOURCE CATALOG · V0.2</div>
         <h1>找到你真正想要的那个版本。</h1>
         <p className="lead">
-          一个以影视作品为核心，结构化整理资源版本、分享位置和来源追踪的资料库。
+          Media Catalog 已进入正式建设：作品、多语言标题、外部 ID、
+          Genre 与剧集结构正在成为可查询的数据基础。
         </p>
 
         <div className="searchShell" aria-label="搜索功能占位">
           <span>搜索电影、剧集、TMDB / IMDb / 豆瓣 ID</span>
           <button type="button" disabled>
-            V0.2 开放
+            V0.2.2 开放
           </button>
         </div>
       </section>
@@ -52,7 +53,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <footer>Foundation first. Media Catalog comes next.</footer>
+      <footer>V0.2 · Media Catalog / Metadata Foundation</footer>
     </main>
   );
 }

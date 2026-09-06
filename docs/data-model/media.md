@@ -1,34 +1,32 @@
 # Media Model
 
+V0.2.1 已正式落地。
+
 ## media
 
-计划字段：
+字段：
 
 ```text
 id
 type
-
 tmdb_id
 
 title
 original_title
 original_language
-
 overview
 
 release_date
 first_air_date
-
 status
 
 poster_path
 backdrop_path
-
 runtime
 
+metadata_updated_at
 created_at
 updated_at
-metadata_updated_at
 ```
 
 唯一约束：
@@ -37,20 +35,16 @@ metadata_updated_at
 (type, tmdb_id)
 ```
 
-不要假设 Movie 与 TV ID 一定处于完全相同命名空间。
-
 ## media_titles
-
-不要把全部语言标题塞在 `media`。
 
 ```text
 id
 media_id
-
 title
 language
 region
 kind
+created_at
 ```
 
 kind：
@@ -63,13 +57,13 @@ alternative
 alias
 ```
 
-例：
+Alternative Title 如果只有 Region 而没有可靠 Language：
 
 ```text
-星际穿越       zh-CN translated
-星際效應       zh-TW translated
-Interstellar  en-US primary
+language = und
 ```
+
+禁止通过 Country 猜 Language。
 
 ## media_external_ids
 
@@ -82,7 +76,7 @@ external_url
 created_at
 ```
 
-provider 预留：
+当前 Provider Enum：
 
 ```text
 tmdb
@@ -91,30 +85,45 @@ douban
 tvdb
 anidb
 bangumi
+wikidata
 other
 ```
 
-优先唯一约束：
+唯一约束：
 
 ```text
 (provider, external_id)
 ```
 
-## Genre
-
-`genres`
+## genres
 
 ```text
 id
+tmdb_id
 slug
 name
+created_at
+updated_at
 ```
 
-`media_genres`
+当前：
+
+```text
+slug = tmdb-{genreId}
+name = TMDB en-US canonical name
+```
+
+## media_genres
+
+多对多连接：
 
 ```text
 media_id
 genre_id
 ```
 
-V0.2 首先使用 TMDB Genre Mapping，不重新发明电影分类体系。
+复合主键：
+
+```text
+(media_id, genre_id)
+```

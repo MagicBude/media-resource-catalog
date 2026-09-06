@@ -1,0 +1,26 @@
+{
+  "id": 1399,
+  "name": "权力的游戏",
+  "original_name": "Game of Thrones",
+  "original_language": "en",
+  "overview": "Fixture overview for provider tests.",
+  "first_air_date": "2011-04-17",
+  "status": "Ended",
+  "poster_path": "/fixture-tv-poster.jpg",
+  "backdrop_path": "/fixture-tv-backdrop.jpg",
+  "genres": [
+    { "id": 10765, "name": "科幻奇幻" },
+    { "id": 18, "name": "剧情" }
+  ],
+  "seasons": [
+    {
+      "air_date": "2011-04-17",
+      "episode_count": 10,
+      "id": 3624,
+      "name": "第 1 季",
+      "overview": "",
+      "poster_path": "/fixture-season-1.jpg",
+      "season_number": 1
+    }
+  ]
+}

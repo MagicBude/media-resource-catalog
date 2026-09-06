@@ -2,18 +2,18 @@
 
 本文件是仓库当前结构的**唯一总清单**。
 
-后续版本直接更新本文件，不新增 `V0_XX_MANIFEST.md`。
+后续版本直接更新本文件，不新增版本化 MANIFEST。
 
 ## 根目录
 
-- `README.md`：项目入口
-- `AGENTS.md`：AI / Codex 强制规则
-- `PROJECT_STATUS.md`：当前阶段、完成情况、下一步
-- `MANIFEST.md`：当前仓库总清单
-- `CHANGELOG.md`：历史变化
-- `CONTRIBUTING.md`：协作规范
-- `.env.example`：环境变量模板
-- `docker-compose.yml`：本地 PostgreSQL
+- `README.md`
+- `AGENTS.md`
+- `PROJECT_STATUS.md`
+- `MANIFEST.md`
+- `CHANGELOG.md`
+- `CONTRIBUTING.md`
+- `.env.example`
+- `docker-compose.yml`
 - `eslint.config.mjs`
 - `tsconfig.base.json`
 - `pnpm-workspace.yaml`
@@ -23,11 +23,11 @@
 
 ### `apps/web`
 
-Next.js 前台骨架。
+Next.js 前台。
 
 ### `apps/api`
 
-Fastify REST API 骨架，当前提供 `/health`。
+Fastify REST API，当前提供 `/health`。
 
 ## packages
 
@@ -35,41 +35,57 @@ Fastify REST API 骨架，当前提供 `/health`。
 
 纯领域层。
 
+当前包含：
+
+- Media Type
+- Media Title Kind
+- External ID Provider
+- Media Catalog Snapshot 类型
+
 ### `packages/database`
 
-PostgreSQL / Drizzle 基础设施层。
+PostgreSQL / Drizzle。
+
+当前正式表：
+
+- `media`
+- `media_titles`
+- `media_external_ids`
+- `genres`
+- `media_genres`
+- `seasons`
+- `episodes`
+
+当前 Repository：
+
+- `MediaRepository`
+
+### `packages/providers`
+
+外部 Provider 适配层。
+
+当前包含：
+
+- Metadata Provider Contract
+- Resource Provider Contract
+- TMDB Client
+- TMDB Metadata Provider
+- TMDB Snapshot Mapper
+- TMDB Fixtures / Tests
 
 ## docs
 
 详细索引见 `docs/README.md`。
 
-分类：
-
-- `product`
-- `architecture`
-- `data-model`
-- `providers`
-- `search`
-- `ui`
-- `community`
-- `api`
-- `security`
-- `development`
-- `roadmap`
-- `handoff`
-
 ## scripts
 
 - `scripts/validate-repository.mjs`
 
-用于检查关键交接文档、核心目录与架构标记是否意外缺失。
+## 尚未创建的未来包
 
-## 当前未创建的未来包
-
-以下目录只在真实职责开始实现时创建，不提前堆空壳：
+只在真实职责出现时创建：
 
 - `apps/worker`
-- `packages/providers`
 - `packages/release-parser`
 - `packages/matcher`
 - `packages/pipeline`

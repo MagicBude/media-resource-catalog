@@ -1,70 +1,87 @@
 # Provider System
 
-## 原则
+Provider 现在明确分成**两类**，不要混为一个接口。
 
-Provider 是**资源发现适配器**，不是数据库 Repository。
+# 1. Metadata Provider
 
-接口方向：
+回答：
+
+> 这是什么影视作品，它的标准元数据是什么？
+
+首个实现：
+
+```text
+TMDB
+```
+
+Contract 方向：
 
 ```ts
-export interface ResourceProvider {
-  readonly id: string;
-  readonly name: string;
+interface MetadataProvider {
+  id: string;
+  name: string;
 
-  search(
-    context: ProviderSearchContext,
-  ): Promise<ResourceCandidate[]>;
+  getMovieSnapshot(id: number): Promise<MediaCatalogSnapshot>;
+  getTvSnapshot(id: number): Promise<MediaCatalogSnapshot>;
 }
 ```
 
-Context 至少包含：
+Metadata Provider 返回规范化 Snapshot，但**不直接写数据库**。
+
+正确：
 
 ```text
-Media ID
-Media Type
-TMDB ID
-Titles[]
-Year
-Query
+TMDB
+ ↓
+Metadata Snapshot
+ ↓
+Application Service
+ ↓
+Repository
 ```
 
-## 禁止
+# 2. Resource Provider
+
+回答：
+
+> 这个明确 Media 有哪些资源候选？
+
+未来首个实现：
 
 ```text
-PanSouProvider
-  ↓
-INSERT releases
+PanSou
 ```
 
-## 正确
+Contract：
 
 ```text
-PanSouProvider
+ResourceProvider
   ↓
 ResourceCandidate[]
-  ↓
-Pipeline
 ```
 
-## Provider Registry
-
-未来：
+正确：
 
 ```text
-packages/providers/
-├─ contracts/
-├─ manual/
-├─ pansou/
-└─ registry/
+PanSou
+ ↓
+Candidate
+ ↓
+Parser
+ ↓
+Matcher
+ ↓
+Deduplicator
+ ↓
+Pipeline
+ ↓
+Repository
 ```
 
-后续扩展 Provider 不应修改核心数据库模型。
+# 3. 共同原则
 
-## Raw Payload
-
-Provider 的原始返回应可持久化到 Source Record / Candidate，以便：
-
-- 重新解析
-- 追踪来源
-- 分析 Provider 质量
-- 调查错误匹配
+- Provider 不拥有数据库。
+- Provider 原始网络响应属于外部输入。
+- 失败、超时与解析错误不能污染正式数据。
+- 测试优先使用 Fixture，不依赖实时网络。
+- Provider 的 ID 必须稳定。

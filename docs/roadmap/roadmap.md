@@ -1,41 +1,48 @@
 # Roadmap
 
-## V0.1 — Foundation
-
-目标：
-
-> 项目能稳定运行、能测试、能交接。
-
-内容：
+## V0.1 — Foundation ✅
 
 - Monorepo
 - Next.js
 - Fastify
-- PostgreSQL
-- Drizzle
-- ESLint
-- TypeScript
-- Vitest
+- PostgreSQL / Drizzle
+- ESLint / TypeScript / Vitest
 - CI
-- AGENTS
-- 分类文档体系
-- PROJECT_STATUS
-- MANIFEST
+- 文档 / Handoff
 
-## V0.2 — Media Catalog
+## V0.2 — Media Catalog 🚧
 
-- TMDB Provider
+### V0.2.1 Metadata Foundation ✅
+
 - Media
-- Media Titles
+- Titles
 - External IDs
 - Genres
 - Seasons
 - Episodes
+- Media Repository
+- Metadata Provider Contract
+- TMDB Provider
+- TMDB Fixtures
+
+### V0.2.2 Import & Read API — Next
+
+- TMDB Snapshot Persistence Service
+- Transaction Boundary
+- Movie / TV Import
+- Media Detail Query
+- Catalog Search
+- API Routes
+- PostgreSQL Integration Tests
+- Web Search Minimal Loop
+
+### V0.2.3 Media UI
+
+- Search Result
 - Movie Detail
 - TV Detail
-- Catalog Search
-
-完成后网站成为可用影视资料库。
+- Season UI
+- Browse 基础
 
 ## V0.3 — Release Catalog
 
@@ -43,24 +50,21 @@
 - Release Parser
 - Manual Release
 - Release UI
-- Release Filters
+- Filters
 - Release Files
 
 ## V0.4 — Share
 
-- Share Schema
+- Share
 - 115
 - 光鸭
 - Verification
 - Manual Submission
-- Share UI
 
-## V0.5 — Provider Pipeline
+## V0.5 — Resource Provider Pipeline
 
-- ResourceCandidate
-- Provider Contract
+- Candidate
 - PanSou
-- Parser
 - Matcher
 - Deduplicator
 - Candidate Inbox
@@ -71,28 +75,10 @@
 - Accounts
 - Favorites
 - Contributions
-- Verification
 - Reports
-- Moderation
 - Audit
 - Point Ledger
 
 ## V0.7 — Public API
 
-稳定：
-
-```text
-/api/v1
-```
-
-供第三方媒体管理工具消费。
-
-## 暂不列入 V0.x 核心
-
-- AI Agent
-- Automatic Transfer
-- STRM
-- Emby
-- Mobile App
-- Premium
-- Forum
+稳定 `/api/v1`。

@@ -1,8 +1,6 @@
 # Current State
 
-## 项目
-
-Repository:
+## Repository
 
 ```text
 https://github.com/MagicBude/media-resource-catalog.git
@@ -10,42 +8,42 @@ https://github.com/MagicBude/media-resource-catalog.git
 
 ## 当前阶段
 
-V0.1 Foundation。
+V0.2.1 Media Catalog / Metadata Foundation，本地验收修复中。
 
-## 当前代码状态
+## 已实现
 
-已经搭建：
+- Media / Titles / External IDs / Genres
+- Seasons / Episodes
+- MediaRepository
+- Metadata / Resource Provider Contract
+- TMDB Client / Provider / Normalizer
+- TMDB Fixtures / Tests
 
-- Web
-- API
-- Core
-- Database
-- CI
-- Docs
+## 2026-09-06 本地验收信息
 
-业务功能尚未正式开始。
+已确认：
 
-## 最重要的既定结论
+- TypeScript 全部通过。
+- Unit Tests 全部通过。
+- Build 全部通过。
 
-1. 不做普通盘搜站。
-2. 核心模型固定：
-   `Media → Release → Share → Provenance`
-3. Release 与 Share 分离。
-4. PostgreSQL + Drizzle。
-5. TMDB 作为主要影视身份源。
-6. Catalog Search 与 Resource Discovery 分离。
-7. Provider 只产 Candidate。
-8. 低置信度匹配不得自动猜测。
-9. PanSou 作为 Provider，不作为产品本体。
-10. 先 Catalog，后自动化消费工具。
+首轮失败属于工程兼容：
 
-## 用户交付偏好
+- repo validator 表示法过严
+- ESLint 10 require-await
+- drizzle-kit workspace 源码运行时解析
+- root `.env` 加载路径
 
-后续修改通常采用：
+修复覆盖包已生成，下一步重新验证。
 
-- 助手提供覆盖 ZIP
-- 用户解压覆盖仓库根目录
-- 若需删除文件，单独明确告诉用户删除路径与命令
-- 不无限新增版本 MANIFEST
-- 提交时给完整中文 Conventional Commit 标题 + 正文
-- 文档必须足够让其他 AI / Codex 接手
+## 仍然不变
+
+```text
+Media → Release → Share → Provenance
+```
+
+TMDB = Metadata Provider。
+
+PanSou = Resource Provider。
+
+Provider 不直接写正式数据库实体。

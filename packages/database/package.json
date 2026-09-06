@@ -1,18 +1,20 @@
 {
   "name": "@media-resource-catalog/database",
-  "version": "0.1.0",
+  "version": "0.2.1",
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "tsc -p tsconfig.build.json",
+    "build": "pnpm clean && tsc -p tsconfig.build.json",
     "lint": "eslint src drizzle.config.ts",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run",
+    "test": "pnpm clean && vitest run",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "tsx src/migrate.ts",
-    "db:studio": "drizzle-kit studio"
+    "db:studio": "drizzle-kit studio",
+    "clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\""
   },
   "dependencies": {
+    "@media-resource-catalog/core": "workspace:*",
     "dotenv": "17.2.3",
     "drizzle-orm": "0.45.2",
     "postgres": "3.4.7"
