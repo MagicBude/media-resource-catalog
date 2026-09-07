@@ -7,6 +7,11 @@
 
 #### Fixed
 
+- 修复真实 TMDB Movie 导入时相同 Alternative Title 跨 Region 被错误判定为重复的问题。
+- `media_titles` 唯一身份从 `(media_id, title, kind)` 扩展为
+  `(media_id, title, kind, language, region)`。
+- 补充跨 Region 同名标题与完全重复标题的 Fixture / Integration Test，
+  确保不同 Region 被保留、完全重复记录由 Normalizer 去重。
 - 清理 V0.2.2 新增代码中的 ESLint 10 type-aware 问题：移除不必要类型断言与无意义 `async`，并调整测试 Promise Mock。
 
 

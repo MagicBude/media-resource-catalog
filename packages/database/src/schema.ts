@@ -107,10 +107,12 @@ export const mediaTitles = pgTable(
       .notNull(),
   },
   (table) => [
-    uniqueIndex("media_titles_media_title_kind_unique").on(
+    uniqueIndex("media_titles_identity_unique").on(
       table.mediaId,
       table.title,
       table.kind,
+      table.language,
+      table.region,
     ),
     index("media_titles_media_id_idx").on(table.mediaId),
     index("media_titles_title_idx").on(table.title),

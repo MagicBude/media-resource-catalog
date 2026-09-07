@@ -1,0 +1,2 @@
+DROP INDEX "media_titles_media_title_kind_unique";--> statement-breakpoint
+CREATE UNIQUE INDEX "media_titles_identity_unique" ON "media_titles" USING btree ("media_id","title","kind","language","region");

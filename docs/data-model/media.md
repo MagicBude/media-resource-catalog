@@ -65,6 +65,28 @@ language = und
 
 禁止通过 Country 猜 Language。
 
+标题身份约束：
+
+```text
+(media_id, title, kind, language, region)
+```
+
+原因：真实 TMDB Alternative Titles 允许相同标题文本出现在不同 Region。
+例如：
+
+```text
+Duna 2 / und / MX / alternative
+Duna 2 / und / BR / alternative
+```
+
+这两条必须同时保留，不能因为标题文本相同而合并。
+
+Provider Normalizer 只去除完全相同的记录：
+
+```text
+title + kind + language + region
+```
+
 ## media_external_ids
 
 ```text

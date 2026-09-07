@@ -104,6 +104,26 @@ describe("TmdbMetadataProvider", () => {
     expect(
       snapshot.titles.some((title) => title.title === "沙丘：第二部"),
     ).toBe(true);
+
+    const regionalDunaTitles = snapshot.titles.filter(
+      (title) =>
+        title.title === "Duna 2" && title.kind === "alternative",
+    );
+
+    expect(regionalDunaTitles).toEqual([
+      {
+        title: "Duna 2",
+        language: "und",
+        region: "MX",
+        kind: "alternative",
+      },
+      {
+        title: "Duna 2",
+        language: "und",
+        region: "BR",
+        kind: "alternative",
+      },
+    ]);
   });
 
   it("normalizes TV seasons and external IDs", async () => {

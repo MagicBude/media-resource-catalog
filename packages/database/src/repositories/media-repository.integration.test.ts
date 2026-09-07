@@ -56,6 +56,18 @@ describeDatabase("MediaRepository integration", () => {
         region: null,
         kind: "original",
       },
+      {
+        title: "Duna 2",
+        language: "und",
+        region: "MX",
+        kind: "alternative",
+      },
+      {
+        title: "Duna 2",
+        language: "und",
+        region: "BR",
+        kind: "alternative",
+      },
     ],
     externalIds: [
       {
@@ -109,6 +121,19 @@ describeDatabase("MediaRepository integration", () => {
         provider: "imdb",
         externalId: "tt15239678",
       }),
+    );
+
+    const regionalDunaTitles = saved.titles.filter(
+      (title) =>
+        title.title === "Duna 2" && title.kind === "alternative",
+    );
+
+    expect(regionalDunaTitles).toHaveLength(2);
+    expect(regionalDunaTitles).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ region: "MX" }),
+        expect.objectContaining({ region: "BR" }),
+      ]),
     );
 
     await expect(

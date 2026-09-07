@@ -8,6 +8,13 @@
       "when": 1788627198398,
       "tag": "0000_magical_maelstrom",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1788770302316,
+      "tag": "0001_strong_phalanx",
+      "breakpoints": true
     }
   ]
 }

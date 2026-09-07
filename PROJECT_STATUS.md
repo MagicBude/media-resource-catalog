@@ -59,6 +59,41 @@ Web Search
 - PostgreSQL Repository Integration Test
 - CI PostgreSQL service
 
+## 真实 TMDB 数据验收
+
+已确认真实 TMDB 请求、代理、Token 与 PostgreSQL Transaction 链路可到达持久化阶段。
+
+真实 Movie `tmdb:693134` 暴露出 `media_titles` 旧唯一约束过窄：
+
+```text
+Duna 2 / MX / alternative
+Duna 2 / BR / alternative
+```
+
+属于两条合法的 Region-specific Alternative Title。
+
+当前 Schema 已修正标题身份为：
+
+```text
+(media_id, title, kind, language, region)
+```
+
+并补充 Provider Fixture 与 PostgreSQL Integration Test。
+
+应用本补丁后，需要基于仓库现有 migration journal 运行一次：
+
+```bash
+pnpm db:generate
+```
+
+生成新的 `0001_*` migration，再执行：
+
+```bash
+pnpm db:migrate
+```
+
+不要修改已经提交的 `0000` migration。
+
 ## 当前 API
 
 ```text
