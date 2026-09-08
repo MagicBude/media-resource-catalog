@@ -1,61 +1,79 @@
 # Next Session
 
-## 下一任务
+## 当前任务
 
-V0.2.3 Media Catalog Completion。
+先完成 V0.2.3 Media Catalog UI Foundation 的桌面与响应式验收。
 
-## 优先级
-
-### 1. TMDB Search Candidate
-
-用户搜索本地没有结果时：
+重点验收真实数据：
 
 ```text
-Local Search
- ↓ empty
-TMDB Search
- ↓
-External Media Candidate
+/movie/693134
+/tv/1399
+/browse
+/search?q=Dune
 ```
 
-必须由用户明确选择后再 Import。
+确认：
 
-### 2. Detail UI
+- Poster / Backdrop 正常
+- 大屏宽度不留无意义空白
+- Movie Detail 信息层级合理
+- TV Season Grid 正常
+- 搜索结果使用 Poster Grid
+- API unavailable / empty state 可读
 
-补：
+## 下一阶段
 
-- Poster / Backdrop
-- Overview
-- Genres
+V0.2.4 Media Identity Hardening。
+
+### 1. External ID Identity
+
+重点审查：
+
+```text
+UNIQUE(provider, external_id)
+```
+
+TMDB Movie / TV 数字 ID 属于不同 media type namespace，不能未经验证假设全局唯一。
+
+### 2. PostgreSQL Unique / NULL Semantics
+
+继续审查：
+
+- media_titles
+- media_external_ids
+- seasons
+- episodes
+
+### 3. Identity Regression Tests
+
+覆盖：
+
+- Movie / TV 同数字 TMDB ID
+- Alternative Titles
 - External IDs
-- Titles
-- TV Seasons
 
-### 3. Episode Import
+## 然后进入 V0.3
 
-按 Season 请求 TMDB Episode Details。
+Release Foundation：
 
-### 4. Browse
+- Resolution
+- Source
+- Video Codec
+- Bit Depth
+- HDR / Dolby Vision
+- Audio
+- Subtitle
+- Release Group
+- Size / File Count
+- TV Coverage
 
-基础：
-
-- Movie / TV
-- Genre
-- Year
-- Recent Metadata Update
-
-### 5. Search Quality
-
-- Title + Year
-- 排序
-- pg_trgm
-- Search Index
+Detail 页已经预留 Release List。
 
 ## 暂时不要
 
-- Release
 - Share
 - PanSou
 - Community
 
-先让 Media Catalog 自己成为完整、好用的资料库。
+Release 模型稳定后再进入这些阶段。

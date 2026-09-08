@@ -2,18 +2,31 @@
 
 ## Unreleased
 
+### V0.2.3 — Media Catalog UI Foundation
+
+#### Added
+
+- 新增全局 Site Header、主导航与常驻搜索入口。
+- 新增 `/browse` 发现页，支持全部 / Movie / TV 基础浏览。
+- 新增 `GET /api/v1/media?type=&limit=`，用于按最近更新读取本地 Catalog。
+- 首页开始展示真实 PostgreSQL Media，不再展示 Core Model Demo Card。
+- 新增统一 Media Poster Card 与响应式 Poster Grid。
+- Movie / TV Detail 使用 Backdrop + Poster + Overview 的正式影视详情层级。
+- TV Detail 新增 Season Poster Grid。
+- Detail 新增 Genres、状态、片长、External Links、Alternative Titles 等资料区域。
+- Detail 首屏下方预留正式 Release List 区域，为 V0.3 对接。
+- Footer 增加 TMDB API attribution。
+- 新增 UI 视觉系统文档。
+
+#### Changed
+
+- 搜索结果从开发型横向数据行改为海报墙结果。
+- TMDB ID、Title Count、External ID Count 等数据库验收信息不再作为详情页视觉主体。
+- 页面最大内容宽度提升，适配大屏 Poster Grid 与详情内容密度。
+- Web UI 统一采用深色高密度影视资料库视觉，不再使用超大 Hero / Debug Dashboard 风格。
+- API Health 版本标记更新为 `0.2.3`。
 
 ### V0.2.2 — Media Import & Read/Search
-
-#### Fixed
-
-- 修复真实 TMDB Movie 导入时相同 Alternative Title 跨 Region 被错误判定为重复的问题。
-- `media_titles` 唯一身份从 `(media_id, title, kind)` 扩展为
-  `(media_id, title, kind, language, region)`。
-- 补充跨 Region 同名标题与完全重复标题的 Fixture / Integration Test，
-  确保不同 Region 被保留、完全重复记录由 Normalizer 去重。
-- 清理 V0.2.2 新增代码中的 ESLint 10 type-aware 问题：移除不必要类型断言与无意义 `async`，并调整测试 Promise Mock。
-
 
 #### Added
 
@@ -23,23 +36,27 @@
   Media、Titles、External IDs、Genres 与 Seasons。
 - 新增本地 Catalog Search。
 - 新增 Movie / TV Read API。
-- 新增 `pnpm media:import -- <movie|tv> <tmdbId>` TMDB 导入命令。
+- 新增 TMDB Import CLI。
 - 新增 Web `/search`、`/movie/[tmdbId]`、`/tv/[tmdbId]` 最小闭环页面。
 - 新增 PostgreSQL Repository Integration Test。
 - GitHub Actions 增加 PostgreSQL 18 测试服务。
 
 #### Fixed
 
-- Media Import CLI 改为使用 Node 标准环境代理支持，不再依赖任何写死的代理地址或端口。
+- 清理 ESLint 10 type-aware 问题：移除不必要类型断言与无意义 `async`，并调整测试 Promise Mock。
+- Media Import CLI 使用 Node 标准环境代理支持，不依赖写死代理地址或端口。
 - 支持每台开发机通过本地 `.env` 独立配置 `HTTP_PROXY`、`HTTPS_PROXY` 与 `NO_PROXY`。
 - Import CLI 同时兼容带或不带 `--` 的参数形式。
+- 修复真实 TMDB Movie 导入时相同 Alternative Title 跨 Region 被错误判定为重复的问题。
+- `media_titles` 唯一身份从 `(media_id, title, kind)` 扩展为
+  `(media_id, title, kind, language, region)`。
+- 补充跨 Region 同名标题与完全重复标题的 Fixture / Integration Test。
 
 #### Changed
 
 - API 运行时开始真实连接 `mrc_dev`。
 - 搜索优先查询正式本地数据库，不直接把每次搜索转发 TMDB。
 - CI 会真实执行 Migration + Repository SQL 集成测试。
-
 
 ### V0.2.1 — Media Catalog / Metadata Foundation
 
@@ -68,6 +85,11 @@
 - 修复 TMDB Provider 纯类型依赖未使用 `import type` 导致的 ESLint 10 错误。
 - 构建前清理 `dist`，并禁止 TypeScript Build 编译测试文件，避免 Vitest 重复执行 `src` 与 `dist` 中的同一测试。
 - 忽略 `*.tsbuildinfo` TypeScript 增量编译缓存，避免工作区产生无意义未跟踪文件。
+- 修复 `/health` handler 在 ESLint 10 下的 `require-await`。
+- 修复 TMDB Fetch Mock 在 ESLint 10 下的 `require-await`。
+- 修复 `pnpm db:generate` 的 `Cannot find module './media/types.js'`。
+- 修复 `pnpm db:migrate` 在根目录 `.env` 已存在时仍报告 `DATABASE_URL is required`。
+- 修复核心架构文档存在但 `repo:validate` 误判缺失的问题。
 
 #### Changed
 
@@ -77,14 +99,6 @@
 - Database package 主动加载仓库根目录 `.env`。
 - Drizzle Schema 不再通过 workspace 源码入口导入运行时枚举，避免 drizzle-kit loader 解析失败。
 - Repository validator 同时接受横向与纵向核心模型表示。
-
-#### Fixed
-
-- 修复 `/health` handler 在 ESLint 10 下的 `require-await`。
-- 修复 TMDB Fetch Mock 在 ESLint 10 下的 `require-await`。
-- 修复 `pnpm db:generate` 的 `Cannot find module './media/types.js'`。
-- 修复 `pnpm db:migrate` 在根目录 `.env` 已存在时仍报告 `DATABASE_URL is required`。
-- 修复核心架构文档存在但 `repo:validate` 误判缺失的问题。
 
 ### V0.1 — Foundation
 

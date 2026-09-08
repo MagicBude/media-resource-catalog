@@ -4,7 +4,7 @@ import type {
 import type { FastifyInstance } from "fastify";
 
 interface MediaRouteDependencies {
-  catalog: Pick<MediaCatalogService, "getMedia" | "search">;
+  catalog: Pick<MediaCatalogService, "getMedia" | "listRecent" | "search">;
 }
 
 type MediaRouteType = "movie" | "tv";
@@ -17,6 +17,34 @@ export function registerMediaRoutes(
   app: FastifyInstance,
   dependencies: MediaRouteDependencies,
 ) {
+  app.get<{
+    Querystring: {
+      type?: string;
+      limit?: string;
+    };
+  }>("/api/v1/media", async (request, reply) => {
+    const typeText = request.query.type?.trim();
+    let type: MediaRouteType | undefined;
+
+    if (typeText) {
+      if (!isMediaType(typeText)) {
+        return reply.code(400).send({
+          error: "INVALID_MEDIA_TYPE",
+          message: "Media type must be movie or tv.",
+        });
+      }
+
+      type = typeText;
+    }
+
+    const parsedLimit = Number(request.query.limit ?? "24");
+    const limit = Number.isFinite(parsedLimit) ? parsedLimit : 24;
+
+    return {
+      items: await dependencies.catalog.listRecent(type, limit),
+    };
+  });
+
   app.get<{
     Querystring: {
       q?: string;

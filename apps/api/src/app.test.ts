@@ -32,6 +32,7 @@ const detail: MediaDetail = {
 function buildTestApp() {
   const catalog = {
     getMedia: vi.fn(() => Promise.resolve(detail)),
+    listRecent: vi.fn(() => Promise.resolve([detail.media])),
     search: vi.fn(
       (): Promise<MediaSearchResult[]> => Promise.resolve([detail.media]),
     ),
@@ -59,8 +60,23 @@ describe("API", () => {
     expect(response.json()).toEqual({
       status: "ok",
       service: "media-resource-catalog-api",
-      version: "0.2.2",
+      version: "0.2.3",
     });
+  });
+
+  it("lists recently updated local media", async () => {
+    const { app, catalog } = buildTestApp();
+
+    const response = await app.inject({
+      method: "GET",
+      url: "/api/v1/media?type=movie&limit=12",
+    });
+
+    expect(response.statusCode).toBe(200);
+    expect(response.json()).toEqual({
+      items: [detail.media],
+    });
+    expect(catalog.listRecent).toHaveBeenCalledWith("movie", 12);
   });
 
   it("searches the local media catalog", async () => {

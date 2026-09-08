@@ -27,12 +27,14 @@ feat(database): 建立 Media 与 External ID 模型
 pnpm check
 ```
 
-涉及数据库：
+涉及正式 Schema 变更：
 
 ```bash
 pnpm db:generate
 pnpm db:migrate
 ```
+
+新电脑 / 新数据库只应用仓库已有 Migration，不重新生成 Migration。
 
 ## 文档
 

@@ -2,7 +2,7 @@
 
 Catalog Search 搜索正式 PostgreSQL Media Catalog。
 
-## 当前 V0.2.2 支持
+## 当前 V0.2.3 支持
 
 标题：
 

@@ -33,11 +33,13 @@ const detail: MediaDetail = {
 function createStore() {
   const saveSnapshot = vi.fn(() => Promise.resolve(detail));
   const getByTmdbId = vi.fn(() => Promise.resolve(detail));
+  const listRecent = vi.fn(() => Promise.resolve([detail.media]));
   const search = vi.fn(() => Promise.resolve([detail.media]));
 
   const store: MediaCatalogStore = {
     saveSnapshot,
     getByTmdbId,
+    listRecent,
     search,
   };
 
@@ -46,6 +48,7 @@ function createStore() {
     spies: {
       saveSnapshot,
       getByTmdbId,
+      listRecent,
       search,
     },
   };
@@ -85,6 +88,9 @@ describe("MediaCatalogService", () => {
 
     await service.search("Dune", 999);
     expect(spies.search).toHaveBeenCalledWith("Dune", 50);
+
+    await service.listRecent("movie", 999);
+    expect(spies.listRecent).toHaveBeenCalledWith("movie", 50);
   });
 });
 

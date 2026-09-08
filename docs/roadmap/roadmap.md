@@ -20,22 +20,34 @@
 - TMDB Import CLI
 - Read API
 - Search API
-- Web Search
-- Minimal Detail
 - PostgreSQL Integration Test
+- Real TMDB Validation
 
-### V0.2.3 Catalog Completion — Next
+### V0.2.3 Media Catalog UI Foundation — Current
 
-- TMDB Search Candidate
-- On-demand explicit Import
-- Full Detail UI
-- Episode Metadata
+- Global Navigation / Search
+- Home Catalog
 - Browse
-- Search Quality
+- Poster Grid
+- Search Result UI
+- Movie Detail
+- TV Detail / Seasons
+- Release Placeholder
+- Responsive Layout
+
+### V0.2.4 Media Identity Hardening — Next
+
+- TMDB Movie / TV namespace
+- External ID Identity
+- Unique / NULL semantics
+- Identity regression tests
 
 ## V0.3 — Release Catalog
 
-Media Catalog 完整后再开始。
+- Release Schema
+- Release Parser Foundation
+- Release List / Detail UI
+- Release Filters
 
 ## V0.4 — Share
 

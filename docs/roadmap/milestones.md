@@ -15,20 +15,26 @@
 - Seasons
 - Episodes
 - TMDB Metadata Provider
+- Migration / PostgreSQL 实际验收
 
-本地仍需完成 migration 与全链路检查后才算实际验收通过。
+## M3 Media Catalog Usable 🚧
 
-## M3 Media Catalog Usable
-
-需要：
+已完成：
 
 - TMDB Import Service
 - Repository Transaction
 - Search API
+- Browse API
 - Movie / TV Detail API
-- 最小 Web Search 闭环
+- Home / Browse / Search / Detail UI
+- Poster / Backdrop / Seasons
 
-完成后网站才真正成为“可用影视资料库”。
+还需要：
+
+- V0.2.3 UI 实机验收
+- V0.2.4 Identity Hardening
+
+完成后 Media Catalog 才作为稳定基座进入 Release。
 
 ## M4 Release Ready
 

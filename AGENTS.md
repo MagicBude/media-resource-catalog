@@ -78,7 +78,7 @@ PanSou
 负责 Media Catalog Application Use Case：
 
 - Import Orchestration
-- Read/Search Service
+- Browse / Read / Search Service
 
 禁止写 SQL，也禁止直接依赖 Fastify / Next.js。
 
@@ -121,7 +121,7 @@ PanSou
 
 ## 7. 当前阶段
 
-当前：V0.2.2 Media Catalog Import / Read / Search。
+当前：V0.2.3 Media Catalog UI Foundation。
 
 暂时不要实现：
 
@@ -158,13 +158,15 @@ PanSou
 pnpm run check
 ```
 
-涉及 Schema：
+涉及 Schema 变更时：
 
 ```bash
 pnpm db:generate
 pnpm db:migrate
 pnpm run check
 ```
+
+只是在新电脑或新数据库应用已有 Schema 时，不要重新 `db:generate`，只执行已提交的 Migration。
 
 ## 10. Git
 

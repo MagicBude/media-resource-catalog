@@ -143,5 +143,7 @@ describeDatabase("MediaRepository integration", () => {
     await expect(
       repository.search("imdb:tt15239678", 20),
     ).resolves.toHaveLength(1);
+
+    await expect(repository.listRecent("movie", 20)).resolves.toHaveLength(1);
   });
 });

@@ -3,7 +3,7 @@ import Fastify from "fastify";
 import { registerMediaRoutes } from "./media-routes.js";
 
 export interface AppDependencies {
-  catalog: Pick<MediaCatalogService, "getMedia" | "search">;
+  catalog: Pick<MediaCatalogService, "getMedia" | "listRecent" | "search">;
 }
 
 export function buildApp(dependencies: AppDependencies) {
@@ -14,7 +14,7 @@ export function buildApp(dependencies: AppDependencies) {
   app.get("/health", () => ({
     status: "ok",
     service: "media-resource-catalog-api",
-    version: "0.2.2",
+    version: "0.2.3",
   }));
 
   void app.register(registerMediaRoutes, dependencies);

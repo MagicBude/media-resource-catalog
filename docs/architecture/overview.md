@@ -42,10 +42,10 @@ Provider 不直接操作数据库。
 
 API Route 也不直接编排多个 Repository 写操作。
 
-## 当前 Read/Search Flow
+## 当前 Browse / Read / Search Flow
 
 ```text
-Web
+Next.js Web
  ↓
 Fastify API
  ↓
@@ -54,6 +54,8 @@ MediaCatalogService
 MediaRepository
  ↓
 PostgreSQL
+
+当前 Web 不直连数据库。首页与 `/browse` 使用 `listRecent`，搜索使用 `search`，详情使用 `getMedia`。
 ```
 
 ## 未来 Resource Discovery

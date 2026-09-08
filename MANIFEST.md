@@ -8,18 +8,28 @@
 
 Next.js：
 
-- `/`
-- `/search`
-- `/movie/[tmdbId]`
-- `/tv/[tmdbId]`
+- `/` — 首页 / 最近入库
+- `/browse` — 本地 Catalog 浏览
+- `/search` — 本地搜索
+- `/movie/[tmdbId]` — Movie Detail
+- `/tv/[tmdbId]` — TV Detail + Seasons
+
+主要 UI：
+
+- `app/_components/site-header.tsx`
+- `app/_components/media-card.tsx`
+- `app/_components/media-detail.tsx`
+- `app/_lib/catalog.ts`
+- `app/globals.css`
 
 ### `apps/api`
 
 Fastify：
 
 - `/health`
-- `/api/v1/media/search`
-- `/api/v1/media/:type/:tmdbId`
+- `GET /api/v1/media`
+- `GET /api/v1/media/search`
+- `GET /api/v1/media/:type/:tmdbId`
 
 CLI：
 
@@ -39,6 +49,8 @@ PostgreSQL / Drizzle：
 - Migration
 - MediaRepository
 - Repository Integration Test
+- `listRecent`
+- Search / Read / Snapshot Transaction
 
 ### `packages/providers`
 
@@ -53,11 +65,17 @@ PostgreSQL / Drizzle：
 - MediaCatalogService
 - MediaImportService
 - MediaCatalogStore Contract
-- Media Read / Search DTO
+- Media Browse / Read / Search DTO
 
 ## docs
 
 入口：`docs/README.md`
+
+UI：
+
+- `docs/ui/information-architecture.md`
+- `docs/ui/page-specs.md`
+- `docs/ui/visual-system.md`
 
 ## scripts
 

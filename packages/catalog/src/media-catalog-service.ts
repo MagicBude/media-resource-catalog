@@ -21,6 +21,14 @@ export class MediaCatalogService {
     return this.store.getByTmdbId(type, tmdbId);
   }
 
+  public listRecent(
+    type?: MediaType,
+    limit = 24,
+  ): Promise<MediaSearchResult[]> {
+    const normalizedLimit = Math.min(Math.max(limit, 1), 50);
+    return this.store.listRecent(type, normalizedLimit);
+  }
+
   public search(
     query: string,
     limit = 20,

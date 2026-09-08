@@ -39,27 +39,21 @@ Provenance
 
 ## 当前阶段
 
-**V0.2 Media Catalog / Metadata Foundation**
+**V0.2.3 Media Catalog UI Foundation**
 
-当前已经进入正式 Media Catalog：
+当前已经具备真实可运行的 Media Catalog：
 
-- Media
-- Media Titles
-- External IDs
-- Genres
-- Seasons
-- Episodes
-- Media Repository
-- Metadata Provider Contract
-- TMDB Metadata Provider
-- TMDB Fixtures / Tests
+- TMDB Movie / TV Metadata Import
+- PostgreSQL Transactional Snapshot
+- Titles / External IDs / Genres / Seasons
+- Browse / Search / Detail API
+- 首页 / 发现 / 搜索
+- Movie Detail
+- TV Detail + Season Grid
+- Poster / Backdrop
 
-下一步是 **V0.2.2 Media Import & Read API**：
-
-- TMDB Snapshot → Repository 原子写入
-- Movie / TV Import Service
-- Media Read API
-- Catalog Search 基础查询
+当前仍然没有正式 Release / Share 数据。
+详情页已经为 V0.3 Release List 预留位置。
 
 详见 `PROJECT_STATUS.md` 与 `docs/handoff/next-session.md`。
 
@@ -77,31 +71,46 @@ Provenance
 
 ## 本地启动
 
+首次克隆：
+
 ```bash
 pnpm install
-docker compose up -d postgres
 cp .env.example .env
-pnpm db:generate
 pnpm db:migrate
 pnpm dev
 ```
 
-PowerShell：
+如果使用本地 PostgreSQL，先按 `docs/development/database.md` 创建数据库。
 
-```powershell
-pnpm install
-docker compose up -d postgres
-Copy-Item .env.example .env
-pnpm db:generate
-pnpm db:migrate
-pnpm dev
-```
+**不要因为换电脑或新建数据库而重新执行 `db:generate`。**
+仓库已经提交的 Migration 直接通过 `pnpm db:migrate` 应用。
+只有 Schema 发生正式变更时才运行 `pnpm db:generate` 创建下一条 Migration。
 
 默认地址：
 
 - Web: `http://127.0.0.1:3000`
 - API: `http://127.0.0.1:4100`
 - API Health: `http://127.0.0.1:4100/health`
+
+## 真实 TMDB 导入
+
+根目录 `.env`：
+
+```text
+TMDB_ACCESS_TOKEN=...
+HTTP_PROXY=
+HTTPS_PROXY=
+NO_PROXY=127.0.0.1,localhost
+```
+
+代理地址由每台电脑独立填写，禁止写死进仓库。
+
+导入：
+
+```bash
+pnpm media:import movie 693134 zh-CN
+pnpm media:import tv 1399 zh-CN
+```
 
 ## 质量检查
 
@@ -118,8 +127,6 @@ pnpm typecheck
 pnpm test
 pnpm build
 ```
-
-> 如果依赖尚未完整安装，pnpm 可能会先尝试补齐依赖。网络较慢时应先确保 `pnpm install` 成功。
 
 ## 文档入口
 

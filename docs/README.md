@@ -42,6 +42,7 @@ Resource Discovery：
 
 - `ui/information-architecture.md`
 - `ui/page-specs.md`
+- `ui/visual-system.md`
 - `search/catalog-search.md`
 
 社区：

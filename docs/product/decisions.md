@@ -82,3 +82,24 @@ TMDB 输出 `MediaCatalogSnapshot`。
 由 Application Service / Repository 负责持久化。
 
 状态：V0.2.1 确定。
+
+
+## D-013 Media UI 以影视内容优先
+
+Media Catalog 的公开界面必须优先展示：
+
+```text
+Poster / Backdrop
+Title / Original Title
+Year / Type / Runtime / Genres
+Overview
+Release
+```
+
+数据库验收信息（Title Count、External ID Count、内部 Identity Card）不得占据 Detail 的主要视觉层级。
+
+V0.3 开始后，Release List 固定为 Media Header 下方第一主体内容区。
+
+UI 可以参考成熟影视产品共同的信息架构，但禁止一比一复制某一个站点。
+
+状态：V0.2.3 确定。

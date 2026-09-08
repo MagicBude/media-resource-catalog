@@ -11,6 +11,7 @@ import type {
 import {
   and,
   asc,
+  desc,
   eq,
   ilike,
   notInArray,
@@ -372,6 +373,36 @@ export class MediaRepository {
       genres: genreRows,
       seasons: seasonRows,
     };
+  }
+
+  public async listRecent(type: MediaType | undefined, limit: number) {
+    const selection = {
+      id: media.id,
+      type: media.type,
+      tmdbId: media.tmdbId,
+      title: media.title,
+      originalTitle: media.originalTitle,
+      releaseDate: media.releaseDate,
+      firstAirDate: media.firstAirDate,
+      posterPath: media.posterPath,
+    };
+
+    const query = this.db
+      .select(selection)
+      .from(media)
+      .orderBy(desc(media.updatedAt))
+      .limit(limit);
+
+    if (!type) {
+      return query;
+    }
+
+    return this.db
+      .select(selection)
+      .from(media)
+      .where(eq(media.type, type))
+      .orderBy(desc(media.updatedAt))
+      .limit(limit);
   }
 
   public async search(query: string, limit: number) {

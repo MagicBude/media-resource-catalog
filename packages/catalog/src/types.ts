@@ -72,5 +72,6 @@ export interface MediaSearchResult {
 export interface MediaCatalogStore {
   saveSnapshot(snapshot: MediaCatalogSnapshot): Promise<MediaDetail>;
   getByTmdbId(type: MediaType, tmdbId: number): Promise<MediaDetail | null>;
+  listRecent(type: MediaType | undefined, limit: number): Promise<MediaSearchResult[]>;
   search(query: string, limit: number): Promise<MediaSearchResult[]>;
 }
